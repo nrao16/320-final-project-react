@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import MoviesPage from './pages/MoviesPage';
 import BooksPage from './pages/BooksPage';
+import AppHeader from './components/AppHeader';
 
 import App from './App'
 // import { loader as charactersLoader } from './pages/CharactersPage'
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
 ]);
 root.render(
   <React.StrictMode>
+     <AppHeader title="My Favorite Books and Movies" />
     <RouterProvider router={router} />
   </React.StrictMode>
 );
