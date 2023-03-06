@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import { Box, Card, CardMedia, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const StyledCard = styled(Card, {
+export const StyledCard = styled(Card, {
     // Make sure props are forwarded
     shouldForwardProp: (prop) => true,
 })(({ theme }) => ({

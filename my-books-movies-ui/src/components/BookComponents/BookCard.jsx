@@ -8,22 +8,30 @@ import {BookModel} from '../../models/BookModel'
 
 const BookCard = ({book}) => {
   return (
-    <Box>
-    <Card
-      sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{padding: 2, elevation: 8,  height: "100%"}}>
+    <Card>
       <CardHeader
-        title="Book Title"
+      titleTypographyProps={{
+        fontSize: 18,
+      }}
+      subheaderTypographyProps={{
+        fontSize: 12,
+      }}
+        title={book.title}
+        subheader={book.author}
       />
       <CardMedia
         component="img"
-        height="300"
+        height={book.book_image_height}
+        width={book.book_image_width}
+        src={book.book_image}
       />
-      <CardContent sx={{ display: 'flex', justifyContent: 'space-between', direction: 'row' }}>
-      <Typography variant="h5">
-        My book description
+      <CardContent>
+      <Typography fontSize={14}>
+        {book.description}
         </Typography>
       </CardContent>
-      <CardActions sx={{ display: 'flex', justifyContent: 'space-between', direction: 'row' }}>
+      <CardActions>
         <Button variant="contained">
          
         </Button>

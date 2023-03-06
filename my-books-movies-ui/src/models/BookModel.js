@@ -7,8 +7,8 @@
  * @param {string} title
  * @param {string} rank
  */
-const Book = class {
-    constructor(primary_isbn13, author, title, rank) {
+const BookModel = class {
+    constructor({primary_isbn13, author, title, rank}) {
         this.primary_isbn13 = primary_isbn13;
         this.author = author;
         this.title = title;
@@ -23,3 +23,5 @@ const Book = class {
     }
 
 };
+
+export default BookModel;
