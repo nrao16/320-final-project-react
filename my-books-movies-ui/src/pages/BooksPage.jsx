@@ -22,10 +22,9 @@ const BooksPage = () => {
     const bookFavoritesExist = false;
     const gridItemBreakpoint = bookFavoritesExist ? 10 : 12;
     return (
-        <Grid container spacing={4}>
+        <Grid container spacing={1}>
 
-            <Grid container item xs={gridItemBreakpoint} sm={gridItemBreakpoint} md={gridItemBreakpoint}
-            >
+            <Grid container item xs={gridItemBreakpoint} sm={gridItemBreakpoint} md={gridItemBreakpoint}>
                 <BookCardList bookList={bookList} />
             </Grid>
 

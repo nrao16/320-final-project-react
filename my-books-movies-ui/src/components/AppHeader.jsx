@@ -4,8 +4,8 @@ import { PropTypes } from 'prop-types';
 
 const AppHeader = ({title}) => {
   return (
-    <AppBar position='sticky' elevation={8}>
-    <Typography variant="h4" align='center' color="">
+    <AppBar position='sticky' elevation={8} color="">
+    <Typography variant="h4" align='center'>
         {title}
     </Typography>
 </AppBar>

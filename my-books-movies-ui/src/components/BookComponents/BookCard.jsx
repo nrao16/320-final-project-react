@@ -8,11 +8,11 @@ import {BookModel} from '../../models/BookModel'
 
 const BookCard = ({book}) => {
   return (
-    <Box sx={{padding: 2, elevation: 8,  height: "100%"}}>
+    <Box sx={{padding: 2, elevation: 8}}>
     <Card>
       <CardHeader
       titleTypographyProps={{
-        fontSize: 18,
+        fontSize: 15,
       }}
       subheaderTypographyProps={{
         fontSize: 12,
@@ -22,17 +22,18 @@ const BookCard = ({book}) => {
       />
       <CardMedia
         component="img"
-        height={book.book_image_height}
-        width={book.book_image_width}
+        height="200"
+        sx={{objectFit: "contain" }}
+        
         src={book.book_image}
       />
       <CardContent>
-      <Typography fontSize={14}>
-        {book.description}
+      <Typography fontSize={12}>
+        {book.description} 
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="contained">
+        <Button  height="20" variant="contained">
          
         </Button>
 
