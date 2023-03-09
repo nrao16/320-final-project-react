@@ -18,3 +18,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FAVORITE_BOOKS_MOVIES }}'
           channelId: live
           projectId: favorite-books-movies
+          entryPoint: ./my-books-movies-ui
