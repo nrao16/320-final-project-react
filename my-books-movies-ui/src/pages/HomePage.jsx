@@ -1,8 +1,7 @@
 import React from 'react'
 import { Grid } from '@mui/material';
-import AppHeader from '../components/AppHeader';
 import { styled } from '@mui/material/styles';
-import { Box, Card, CardMedia, CardActions } from '@mui/material';
+import { Card, CardMedia, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export const StyledCard = styled(Card, {

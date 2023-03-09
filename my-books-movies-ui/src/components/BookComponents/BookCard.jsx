@@ -1,10 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
 import { Button, Card, CardHeader, CardActions, CardContent, CardMedia } from '@mui/material';
-import { Typography, Box, Rating, Avatar, Tooltip } from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
-import { PropTypes } from 'prop-types';
-import {BookModel} from '../../models/BookModel'
+import { Typography, Box } from '@mui/material';
 
 const BookCard = ({book}) => {
   return (

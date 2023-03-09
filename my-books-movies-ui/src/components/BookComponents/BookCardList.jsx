@@ -1,7 +1,6 @@
 import React from 'react'
 import BookCard from './BookCard';
 import { Grid } from '@mui/material';
-import { PropTypes } from 'prop-types';
 
 const BookCardList = ({bookList}) => {
     let bookListGrid = bookList.map((book) => {
