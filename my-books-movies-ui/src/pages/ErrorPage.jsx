@@ -6,7 +6,7 @@ export default function ErrorPage() {
 
   let message;
 
-  if (error?.status != 200) {
+  if (error?.status !== 200) {
     message = <p>An unexpected error occurred.</p>;
   }
 
