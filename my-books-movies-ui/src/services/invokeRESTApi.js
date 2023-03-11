@@ -5,7 +5,7 @@ const invokeRESTApi = async(reqUrl) => {
     return fetch(url.href)
       .then(response => response.json())
       .catch((error) => {
-        handleError(error);
+        return handleError(error);
       });
 }
 

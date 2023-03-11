@@ -20,7 +20,6 @@ const BookCard = ({book}) => {
         component="img"
         height="200"
         sx={{objectFit: "contain" }}
-        
         src={book.book_image}
       />
       <CardContent>
@@ -28,10 +27,10 @@ const BookCard = ({book}) => {
         {book.description} 
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button  height="20" variant="contained">
+      <CardActions >
+        {/* <Button  height="20" variant="contained">
          
-        </Button>
+        </Button> */}
 
       </CardActions>
     </Card>
