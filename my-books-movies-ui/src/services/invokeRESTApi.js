@@ -5,19 +5,19 @@ const invokeRESTApi = async(reqUrl) => {
     return fetch(url.href)
       .then(response => response.json())
       .catch((error) => {
-        handleError(error);
+        return handleError(error);
       });
 }
 
 function handleError(error) {
-    console.log(error, 'api response');
+    //console.debug(error, 'api response');
   
     const errorObj = {
       statusCode: error?.response?.status || '100',
       errorMsg: error?.response?.data || 'General Error',
     };
 
-    console.log(errorObj, 'errorObj');
+    console.error(errorObj, 'errorObj');
     return errorObj;
   }
 

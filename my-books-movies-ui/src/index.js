@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import MoviesPage from './pages/MoviesPage';
 import BooksPage from './pages/BooksPage';
 import AppHeader from './components/AppHeader';
+import { loader as booksLoader } from './pages/BooksPage'
 
 import App from './App'
 // import { loader as charactersLoader } from './pages/CharactersPage'
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
   {
     path: 'books',
     element: <BooksPage />,
+    loader: booksLoader,
     errorElement: <ErrorPage />
   },
   {

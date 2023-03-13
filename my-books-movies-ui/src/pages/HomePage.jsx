@@ -19,7 +19,7 @@ export const StyledCard = styled(Card, {
 const HomePage = () => {
     return (
         <Grid container>
-            <Grid item xs={5} sm={6} md={6} lg={6}>
+            <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                 <StyledCard>
                     <CardActions>
                         <Link to="/books">
@@ -32,7 +32,7 @@ const HomePage = () => {
                 </StyledCard>
             </Grid>
 
-            <Grid item xs={5} sm={6} md={6} lg={6}>
+            <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                 <StyledCard>
                     <CardActions>
                         <Link to="/movies">
