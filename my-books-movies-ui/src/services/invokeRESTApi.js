@@ -10,14 +10,14 @@ const invokeRESTApi = async(reqUrl) => {
 }
 
 function handleError(error) {
-    console.log(error, 'api response');
+    //console.debug(error, 'api response');
   
     const errorObj = {
       statusCode: error?.response?.status || '100',
       errorMsg: error?.response?.data || 'General Error',
     };
 
-    console.log(errorObj, 'errorObj');
+    console.error(errorObj, 'errorObj');
     return errorObj;
   }
 
