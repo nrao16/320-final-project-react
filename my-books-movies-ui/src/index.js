@@ -7,6 +7,7 @@ import MoviesPage from './pages/MoviesPage';
 import BooksPage from './pages/BooksPage';
 import AppHeader from './components/AppHeader';
 import { loader as booksLoader } from './pages/BooksPage'
+import { loader as moviesLoader } from './pages/MoviesPage'
 
 import App from './App'
 // import { loader as charactersLoader } from './pages/CharactersPage'
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
   {
     path: 'movies',
     element: <MoviesPage />,
+    loader: moviesLoader,
     errorElement: <ErrorPage />
   },
 ]);

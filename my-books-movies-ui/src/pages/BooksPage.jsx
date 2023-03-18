@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Grid } from '@mui/material';
 import BookCardList from '../components/BookComponents/BookCardList';
-import FavoritesBar from '../components/BookComponents/FavoritesBar';
+import FavoritesBar from '../components/common/FavoritesBar';
 import FavoriteBooksList from '../components/BookComponents/FavoriteBooksList';
 import invokeRESTApi from '../services/invokeRESTApi';
 import { useEffect, useState } from 'react';
@@ -64,8 +64,7 @@ const BooksPage = () => {
   const gridItemBreakpoint = bookFavoritesExist ? 10 : 12;
 
   return (
-    <Grid container spacing={1}>
-
+    <Grid container spacing={1} >
       <Grid container item xs={gridItemBreakpoint} sm={gridItemBreakpoint} md={gridItemBreakpoint}>
         <BookCardList bookList={bookList} handleFavorites={handleFavorites} favoriteBooks={favoriteBooks} />
       </Grid>

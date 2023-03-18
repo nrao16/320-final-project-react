@@ -4,9 +4,9 @@ import { Typography, Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const BookCard = ({ book, handleFavorites, favoriteBooks }) => {
+const MovieCard = ({ movie, handleFavorites, favoriteMovies }) => {
   const isInFavorites = () => {
-    return favoriteBooks?.some(favBook => favBook.primary_isbn13 === book.primary_isbn13)
+    return favoriteMovies?.some(favMovie => favMovie.display_title === movie.display_title)
   };
 
   return (
@@ -19,24 +19,24 @@ const BookCard = ({ book, handleFavorites, favoriteBooks }) => {
           subheaderTypographyProps={{
             fontSize: 12,
           }}
-          title={book.title}
-          subheader={book.author}
+          title={movie.display_title}
+          subheader={movie.headline}
         />
         <CardMedia
           component="img"
-          height="190"
+          height="180"
           sx={{ objectFit: "contain" }}
-          src={book.book_image}
+          src={movie.multimedia.src}
         />
-        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', direction: 'row' }}>
+        <CardContent >
           <Typography fontSize={12}>
-            {book.description}
+            {movie.summary_short}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton sx={{ "& :hover": { color: "red" } }}
             aria-label="add or remove favorites"
-            onClick={() => handleFavorites(book)}
+            onClick={() => handleFavorites(movie)}
           >
             {isInFavorites() ?
               <FavoriteIcon color="primary" />
@@ -51,4 +51,4 @@ const BookCard = ({ book, handleFavorites, favoriteBooks }) => {
   )
 }
 
-export default BookCard
+export default MovieCard

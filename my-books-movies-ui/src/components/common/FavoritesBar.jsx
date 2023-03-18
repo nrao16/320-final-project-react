@@ -4,7 +4,7 @@ import { Toolbar, Typography } from '@mui/material';
 const FavoritesBar = () => {
     return (
         <Toolbar sx={{ bgcolor: "inherit" }}>
-            <Typography variant="h5" fontWeight={"bold"} >Favorite Books</Typography>
+            <Typography variant="h5" fontWeight={"bold"} >Favorites</Typography>
         </Toolbar>
     )
 }
