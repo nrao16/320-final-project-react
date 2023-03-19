@@ -4,7 +4,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const FavoriteCard = ({ favoriteItem, removeFromFavorites }) => {
     return (
-        <Box>
+        <Box padding={1}>
             <Card sx={{ maxWidth: 250, maxHeight:350 }}>
                 <CardHeader
                     titleTypographyProps={{

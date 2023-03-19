@@ -1,36 +1,75 @@
 import React from 'react'
-import { Box, Grid, Toolbar, Button } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import BookCardList from '../components/BookComponents/BookCardList';
-import invokeRESTApi from '../services/invokeRESTApi';
+import FavoritesToolBar from '../components/FavoriteComponents/FavoritesToolBar';
 import FavoritesList from '../components/FavoriteComponents/FavoritesList';
+import StyledSectionDivider from '../components/common/StyledSectionDivider';
+import invokeRESTApi from '../services/invokeRESTApi';
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 export async function loader() {
-  const url = `${process.env.REACT_APP_NYT_API_BASE_URL}/books/v3/lists/current/hardcover-fiction.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`;
-  return invokeRESTApi(url);
+  const nytBooksURL = `${process.env.REACT_APP_NYT_API_BASE_URL}/books/v3/lists/current/`;
+  const nytApiKey = `api-key=${process.env.REACT_APP_NYT_API_KEY}`;
+  const [hardcoverFiction, hardcoverNonfiction,
+    paperbackNonfiction] = await Promise.all([
+      invokeRESTApi(`${nytBooksURL}hardcover-fiction.json?${nytApiKey}`),
+      invokeRESTApi(`${nytBooksURL}hardcover-nonfiction.json?${nytApiKey}`),
+      invokeRESTApi(`${nytBooksURL}paperback-nonfiction.json?${nytApiKey}`),
+      // For future enhancements
+      // invokeRESTApi(`${nytBooksURL}graphic-books-and-manga.json?${nytApiKey}`),
+      //  invokeRESTApi(`${nytBooksURL}audio-fiction.json?${nytApiKey}`),
+      //  invokeRESTApi(`${nytBooksURL}audio-nonfiction?${nytApiKey}`),
+    ]);
+  return {
+    hardcoverFiction, hardcoverNonfiction,
+    paperbackNonfiction
+  };
+
 }
 
 const BooksPage = () => {
-  const apiData = useLoaderData();
-  const [bookList, setBookList] = useState([]);
+
+  // all the loaded data
+  const { hardcoverFiction, hardcoverNonfiction,
+    paperbackNonfiction, } = useLoaderData();
+
+  const [hardcoverFictionBookList, setHardcoverFictionBookList] = useState([]);
+  const [hardcoverNonFictionBookList, setHardcoverNonFictionBookList] = useState([]);
+  const [paperbackNonFictionBookList, setPaperbackNonFictionBookList] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
 
   useEffect(() => {
-    console.debug(apiData);
-    if (apiData?.results) {
-      setBookList(apiData?.results?.books);
+    console.debug(hardcoverFiction);
+    // hardcover fiction
+    if (hardcoverFiction?.results) {
+      setHardcoverFictionBookList(hardcoverFiction?.results?.books?.slice(0, 5));
     } else {
-      console.error(`API error - ${apiData}`)
+      console.error(`API error - ${hardcoverFiction}`)
+      setHasError(true);
+    }
+    // hardcover non fiction
+    if (hardcoverNonfiction?.results) {
+      setHardcoverNonFictionBookList(hardcoverNonfiction?.results?.books?.slice(0, 5));
+    } else {
+      console.error(`API error - ${hardcoverNonfiction}`)
       setHasError(true);
     }
 
-  }, [apiData])
+    // paperback non fiction
+    if (paperbackNonfiction?.results) {
+      setPaperbackNonFictionBookList(paperbackNonfiction?.results?.books?.slice(0, 5));
+    } else {
+      console.error(`API error - ${paperbackNonfiction}`)
+      setHasError(true);
+    }
+
+  }, [hardcoverFiction, hardcoverNonfiction, paperbackNonfiction])
 
   if (hasError) {
-    return <p>Error!</p>
+    return <p>Error retrieving results, please try again in a few minutes... </p>
   }
 
   const updateFavorites = (book) => {
@@ -63,31 +102,44 @@ const BooksPage = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Toolbar>
-          <Button color="inherit"
-            variant="text"
-            onClick={() => setShowFavorites(!showFavorites)}
-            sx={{ textTransform: "capitalize", marginLeft: "auto" }}
-          >
-            {!showFavorites ? "Show My Favorites" : "Hide My Favorites"}
-          </Button>
-        </Toolbar>
-      </Box>
+      <FavoritesToolBar setShowFavorites={setShowFavorites} showFavorites={showFavorites} />
 
-      <Grid container spacing={1} >
-        <Grid container item xs={gridItemBreakpoint} sm={gridItemBreakpoint} md={gridItemBreakpoint}>
-          <BookCardList bookList={bookList} updateFavorites={updateFavorites} favorites={favorites} />
+      <Grid container>
+        <Grid item xs={gridItemBreakpoint}>
+
+          <Grid item xs={12} sm={12} md={12}>
+            <StyledSectionDivider text={"New York Times Hard Cover Fiction Top 5"} />
+          </Grid>
+
+          <Grid container item xs={12} sm={12} md={12}>
+            <BookCardList bookList={hardcoverFictionBookList} updateFavorites={updateFavorites} favorites={favorites} />
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={12}>
+            <StyledSectionDivider text="New York Times Hard Cover Non Fiction Top 5" />
+          </Grid>
+
+          <Grid container item xs={12} sm={12} md={12}>
+            <BookCardList bookList={hardcoverNonFictionBookList} updateFavorites={updateFavorites} favorites={favorites} />
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={12}>
+            <StyledSectionDivider text="New York Times Paperback Non Fiction Top 5" />
+          </Grid>
+
+          <Grid container item xs={12} sm={12} md={12}>
+            <BookCardList bookList={paperbackNonFictionBookList} updateFavorites={updateFavorites} favorites={favorites} />
+          </Grid>
+
         </Grid>
 
         {showFavorites &&
-          <Grid container item xs={2} sm={2} md={2}>
+          <Grid item xs={2}>
             <Box>
-              Favorites
-              <Grid container direction="column">
-                <Grid item>
-                  <FavoritesList favorites={favorites} removeFromFavorites={removeFromFavorites} />
-                </Grid>
+              <Grid item xs={12}>Favorites</Grid>
+              
+              <Grid container item xs={12} direction="column">
+                <FavoritesList favorites={favorites} removeFromFavorites={removeFromFavorites} />
               </Grid>
             </Box>
           </Grid>

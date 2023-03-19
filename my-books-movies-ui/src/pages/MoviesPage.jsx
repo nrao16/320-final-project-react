@@ -1,7 +1,9 @@
 import React from 'react'
-import { Box, Grid, Toolbar, Button, Typography } from '@mui/material';
+import { Box, Grid, Typography, Divider } from '@mui/material';
 import MovieCardList from '../components/MovieComponents/MovieCardList';
 import FavoritesList from '../components/FavoriteComponents/FavoritesList';
+import StyledSectionDivider from '../components/common/StyledSectionDivider';
+import FavoritesToolBar from '../components/FavoriteComponents/FavoritesToolBar';
 import invokeRESTApi from '../services/invokeRESTApi';
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -27,7 +29,7 @@ const MoviesPage = () => {
       setHasError(true);
     }
 
-  }, [apiData])
+  }, [apiData]);
 
   if (hasError) {
     return <p>Error!</p>
@@ -63,30 +65,27 @@ const MoviesPage = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Toolbar>
-          <Button color="inherit"
-            variant="text"
-            onClick={() => setShowFavorites(!showFavorites)}
-            sx={{ textTransform: "capitalize", marginLeft: "auto" }}
-          >
-            {!showFavorites ? "Show My Favorites" : "Hide My Favorites"}
-          </Button>
-        </Toolbar>
-      </Box>
-      <Grid container spacing={1}>
-        <Grid container item xs={gridItemBreakpoint} sm={gridItemBreakpoint} md={gridItemBreakpoint}>
-          <MovieCardList movieList={movieList} updateFavorites={updateFavorites} favorites={favorites} />
+      <FavoritesToolBar setShowFavorites={setShowFavorites} showFavorites={showFavorites} />
+
+      <Grid container>
+        <Grid item xs={gridItemBreakpoint}>
+
+          <Grid item xs={12} sm={12} md={12}>
+            <StyledSectionDivider text={"New York Times Movie Reviews Top Picks"} />
+          </Grid>
+
+          <Grid container item xs={12} sm={12} md={12}>
+            <MovieCardList movieList={movieList} updateFavorites={updateFavorites} favorites={favorites} />
+          </Grid>
         </Grid>
 
         {showFavorites &&
-          <Grid container item xs={2}>
+          <Grid item xs={2}>
             <Box>
-              <Typography>Favorites</Typography>
-              <Grid container>
-                <Grid item>
-                  <FavoritesList favorites={favorites} removeFromFavorites={removeFromFavorites} />
-                </Grid>
+              <Grid item xs={12}>Favorites</Grid>
+
+              <Grid container item xs={12} direction="column">
+                <FavoritesList favorites={favorites} removeFromFavorites={removeFromFavorites} />
               </Grid>
             </Box>
           </Grid>

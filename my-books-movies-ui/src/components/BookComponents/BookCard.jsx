@@ -11,7 +11,7 @@ const BookCard = ({ book, updateFavorites, favorites }) => {
 
   return (
     <Box padding={1}>
-      <Card sx={{ maxWidth: 350, maxHeight:400 }}>
+      <Card sx={{ maxWidth: 500, maxHeight: 400 }}>
         <CardHeader
           titleTypographyProps={{
             fontSize: 15,
@@ -26,7 +26,7 @@ const BookCard = ({ book, updateFavorites, favorites }) => {
         />
         <CardMedia
           component="img"
-          sx={{ height: 140, objectFit:"contain"}}
+          sx={{ height: 140, objectFit: "contain" }}
           src={book.book_image}
         />
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', direction: 'row' }}>
