@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grid, Typography, Divider } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import MovieCardList from '../components/MovieComponents/MovieCardList';
 import FavoritesList from '../components/FavoriteComponents/FavoritesList';
 import StyledSectionDivider from '../components/common/StyledSectionDivider';
