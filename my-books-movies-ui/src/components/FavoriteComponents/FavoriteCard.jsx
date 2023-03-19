@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card, CardHeader, CardMedia } from '@mui/material';
-import { Box } from '@mui/material';
+import { Card, CardHeader, CardMedia, CardActions, Box, IconButton } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const FavoriteCard = ({ favoriteItem, removeFromFavorites }) => {
     return (
@@ -22,6 +22,21 @@ const FavoriteCard = ({ favoriteItem, removeFromFavorites }) => {
                     sx={{ objectFit: "contain" }}
                     src={favoriteItem.img}
                 />
+                <CardActions sx={{textAlign:"right",  width: '100%', justifyContent: 'flex-end' }}>
+                    <IconButton sx={{ "& :hover": { color: "red" } }}
+                        aria-label="delete favorite"
+                        onClick={() => {
+                            removeFromFavorites({
+                                "id": favoriteItem.id,
+                                "title": favoriteItem.title,
+                                "subHeader": favoriteItem.title,
+                                "img": favoriteItem.img
+                            })
+                        }}
+                    ><DeleteForeverIcon fontSize="medium" color="primary" />
+                    </IconButton>
+
+                </CardActions>
             </Card>
         </Box>
     )

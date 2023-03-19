@@ -36,8 +36,8 @@ const MovieCard = ({ movie, updateFavorites, favorites }) => {
         <CardActions disableSpacing>
           <IconButton sx={{ "& :hover": { color: "red" } }}
             aria-label="add or remove favorites"
-            onClick={(e) => {
-              e.preventDefault(); updateFavorites({
+            onClick={() => {
+              updateFavorites({
                 "id": movie.display_title,
                 "title": movie.display_title,
                 "subHeader": movie.headline,
