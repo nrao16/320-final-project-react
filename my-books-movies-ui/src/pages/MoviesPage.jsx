@@ -70,7 +70,7 @@ const MoviesPage = () => {
             onClick={() => setShowFavorites(!showFavorites)}
             sx={{ textTransform: "capitalize", marginLeft: "auto" }}
           >
-            {!showFavorites ? "Show My Favorites" : "Hid My Favorites"}
+            {!showFavorites ? "Show My Favorites" : "Hide My Favorites"}
           </Button>
         </Toolbar>
       </Box>
