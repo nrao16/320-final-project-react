@@ -11,25 +11,26 @@ const MovieCard = ({ movie, updateFavorites, favorites }) => {
 
   return (
     <Box padding={1}>
-      <Card>
+      <Card sx={{ maxWidth: 350, maxHeight:400 }}>
         <CardHeader
           titleTypographyProps={{
             fontSize: 15,
+            noWrap: true
           }}
           subheaderTypographyProps={{
             fontSize: 12,
+            noWrap: true
           }}
           title={movie.display_title}
           subheader={movie.headline}
         />
         <CardMedia
           component="img"
-          height="180"
-          sx={{ objectFit: "contain" }}
+          sx={{ height: 140, objectFit:"contain"}}
           src={movie.multimedia.src}
         />
-        <CardContent >
-          <Typography fontSize={12}>
+        <CardContent>
+          <Typography fontSize={12} noWrap>
             {movie.summary_short}
           </Typography>
         </CardContent>

@@ -11,25 +11,26 @@ const BookCard = ({ book, updateFavorites, favorites }) => {
 
   return (
     <Box padding={1}>
-      <Card>
+      <Card sx={{ maxWidth: 350, maxHeight:400 }}>
         <CardHeader
           titleTypographyProps={{
             fontSize: 15,
+            noWrap: true
           }}
           subheaderTypographyProps={{
             fontSize: 12,
+            noWrap: true
           }}
           title={book.title}
           subheader={book.author}
         />
         <CardMedia
           component="img"
-          height="190"
-          sx={{ objectFit: "contain" }}
+          sx={{ height: 140, objectFit:"contain"}}
           src={book.book_image}
         />
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', direction: 'row' }}>
-          <Typography fontSize={12}>
+          <Typography fontSize={12} noWrap>
             {book.description}
           </Typography>
         </CardContent>

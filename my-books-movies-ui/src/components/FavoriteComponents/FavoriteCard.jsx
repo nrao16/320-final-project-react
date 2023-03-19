@@ -4,8 +4,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const FavoriteCard = ({ favoriteItem, removeFromFavorites }) => {
     return (
-        <Box padding={2}>
-            <Card sx={{ height: '100%', width: '100%', display: 'grid', flexDirection: 'row' }}>
+        <Box>
+            <Card sx={{ maxWidth: 250, maxHeight:350 }}>
                 <CardHeader
                     titleTypographyProps={{
                         fontSize: 12,
@@ -18,8 +18,7 @@ const FavoriteCard = ({ favoriteItem, removeFromFavorites }) => {
                 />
                 <CardMedia
                     component="img"
-                    height="80"
-                    sx={{ objectFit: "contain" }}
+                    sx={{ height: 100, objectFit: "contain" }}
                     src={favoriteItem.img}
                 />
                 <CardActions sx={{textAlign:"right",  width: '100%', justifyContent: 'flex-end' }}>
