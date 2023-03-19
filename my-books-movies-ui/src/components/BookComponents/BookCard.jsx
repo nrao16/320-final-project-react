@@ -4,9 +4,9 @@ import { Typography, Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const BookCard = ({ book, handleFavorites, favoriteBooks }) => {
+const BookCard = ({ book, updateFavorites, favorites }) => {
   const isInFavorites = () => {
-    return favoriteBooks?.some(favBook => favBook.primary_isbn13 === book.primary_isbn13)
+    return favorites?.some(favItem => favItem.id === book.primary_isbn13)
   };
 
   return (
@@ -36,12 +36,17 @@ const BookCard = ({ book, handleFavorites, favoriteBooks }) => {
         <CardActions disableSpacing>
           <IconButton sx={{ "& :hover": { color: "red" } }}
             aria-label="add or remove favorites"
-            onClick={() => handleFavorites(book)}
+            onClick={() => updateFavorites({
+              "id": book.primary_isbn13,
+              "title": book.title,
+              "subHeader": book.author,
+              "img": book.book_image
+            })}
           >
             {isInFavorites() ?
-              <FavoriteIcon color="primary" />
+              <FavoriteIcon fontSize="large" color="primary" />
               :
-              <FavoriteBorderIcon color="primary" />
+              <FavoriteBorderIcon fontSize="large" color="primary" />
             }
           </IconButton>
 

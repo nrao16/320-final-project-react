@@ -1,12 +1,12 @@
-import React from 'react'
-import { Toolbar, Typography } from '@mui/material';
+// import React from 'react'
+// import { Toolbar, Typography } from '@mui/material';
 
-const FavoritesBar = () => {
-    return (
-        <Toolbar sx={{ bgcolor: "inherit" }}>
-            <Typography variant="h5" fontWeight={"bold"} >Favorites</Typography>
-        </Toolbar>
-    )
-}
+// const FavoritesBar = () => {
+//     return (
+//         <Toolbar sx={{ bgcolor: "inherit" }}>
+//             <Typography variant="h5" fontWeight={"bold"} >Favorites</Typography>
+//         </Toolbar>
+//     )
+// }
 
-export default FavoritesBar;
+// export default FavoritesBar;

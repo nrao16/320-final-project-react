@@ -4,9 +4,9 @@ import { Typography, Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const MovieCard = ({ movie, handleFavorites, favoriteMovies }) => {
+const MovieCard = ({ movie, updateFavorites, favorites }) => {
   const isInFavorites = () => {
-    return favoriteMovies?.some(favMovie => favMovie.display_title === movie.display_title)
+    return favorites?.some(favItem => favItem.id === movie.display_title)
   };
 
   return (
@@ -36,12 +36,19 @@ const MovieCard = ({ movie, handleFavorites, favoriteMovies }) => {
         <CardActions disableSpacing>
           <IconButton sx={{ "& :hover": { color: "red" } }}
             aria-label="add or remove favorites"
-            onClick={() => handleFavorites(movie)}
+            onClick={(e) => {
+              e.preventDefault(); updateFavorites({
+                "id": movie.display_title,
+                "title": movie.display_title,
+                "subHeader": movie.headline,
+                "img": movie.multimedia.src
+              })
+            }}
           >
             {isInFavorites() ?
-              <FavoriteIcon color="primary" />
+              <FavoriteIcon fontSize="large" color="primary" />
               :
-              <FavoriteBorderIcon color="primary" />
+              <FavoriteBorderIcon fontSize="large" color="primary" />
             }
           </IconButton>
 

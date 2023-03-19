@@ -1,8 +1,7 @@
 import React from 'react'
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Toolbar, Button, Typography } from '@mui/material';
 import MovieCardList from '../components/MovieComponents/MovieCardList';
-import FavoritesBar from '../components/common/FavoritesBar';
-import FavoriteMoviesList from '../components/MovieComponents/FavoriteMoviesList';
+import FavoritesList from '../components/FavoriteComponents/FavoritesList';
 import invokeRESTApi from '../services/invokeRESTApi';
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -12,12 +11,12 @@ export async function loader() {
   return invokeRESTApi(url);
 }
 
-
 const MoviesPage = () => {
   const apiData = useLoaderData();
   const [movieList, setMovieList] = useState([]);
   const [hasError, setHasError] = useState(false);
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [showFavorites, setShowFavorites] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     console.debug(apiData);
@@ -34,16 +33,16 @@ const MoviesPage = () => {
     return <p>Error!</p>
   }
 
-  const handleFavorites = (movie) => {
-    if (favoriteMovies?.some(favMovie => favMovie.display_title === movie.display_title)) {
+  const updateFavorites = (movie) => {
+    if (favorites?.some(favMovie => favMovie.id === movie.id)) {
       removeFromFavorites(movie);
     } else {
       addToFavorites(movie);
     }
   }
   const addToFavorites = (movie) => {
-    setFavoriteMovies(prevFavoriteMovies => {
-      let newList = [...prevFavoriteMovies];
+    setFavorites(prevFavorites => {
+      let newList = [...prevFavorites];
       newList.push(movie);
       return newList;
     }
@@ -51,39 +50,50 @@ const MoviesPage = () => {
   }
 
   const removeFromFavorites = (movie) => {
-    setFavoriteMovies(prevFavoriteMovies => {
-      let newList = prevFavoriteMovies.filter(currentMovie =>
-        currentMovie.display_title !== movie.display_title
+    setFavorites(prevFavorites => {
+      let newList = prevFavorites.filter(currentMovie =>
+        currentMovie.id !== movie.id
       )
       return newList;
     });
 
   }
 
-  const movieFavoritesExist = favoriteMovies?.length > 0;
-  const gridItemBreakpoint = movieFavoritesExist ? 10 : 12;
+  const gridItemBreakpoint = showFavorites ? 10 : 12;
 
   return (
-    <Grid container spacing={1}>
-
-      <Grid container item xs={gridItemBreakpoint} sm={gridItemBreakpoint} md={gridItemBreakpoint}>
-        <MovieCardList movieList={movieList} handleFavorites={handleFavorites} favoriteMovies={favoriteMovies} />
-      </Grid>
-
-      {movieFavoritesExist &&
-        <Grid container item xs={2}>
-          <Box>
-            <Grid container>
-              <FavoritesBar />
-              <Grid item>
-                <FavoriteMoviesList favoriteMovies={favoriteMovies} />
-              </Grid>
-            </Grid>
-          </Box>
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <Toolbar>
+          <Button color="inherit"
+            variant="text"
+            onClick={() => setShowFavorites(!showFavorites)}
+            sx={{ textTransform: "capitalize", marginLeft: "auto" }}
+          >
+            {!showFavorites ? "Show My Favorites" : "Hid My Favorites"}
+          </Button>
+        </Toolbar>
+      </Box>
+      <Grid container spacing={1}>
+        <Grid container item xs={gridItemBreakpoint} sm={gridItemBreakpoint} md={gridItemBreakpoint}>
+          <MovieCardList movieList={movieList} updateFavorites={updateFavorites} favorites={favorites} />
         </Grid>
-      }
 
-    </Grid>
+        {showFavorites &&
+          <Grid container item xs={2}>
+            <Box>
+              <Typography>Favorites</Typography>
+              <Grid container>
+                <Grid item>
+                  <FavoritesList favorites={favorites} removeFromFavorites={removeFromFavorites} />
+                </Grid>
+              </Grid>
+            </Box>
+          </Grid>
+        }
+
+      </Grid>
+    </>
   )
 }
 
