@@ -1,6 +1,7 @@
 import React from 'react';
 import { Popover, Typography } from '@mui/material';
 import { useState } from 'react';
+import { PropTypes } from 'prop-types';
 
 const NowrapPopoverText = ({ fontSize, popoverText }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -44,5 +45,11 @@ const NowrapPopoverText = ({ fontSize, popoverText }) => {
     </Typography>
   )
 }
+
+NowrapPopoverText.propTypes = {
+  fontSize: PropTypes.number.isRequired,
+  popoverText: PropTypes.string.isRequired,
+};
+
 
 export default NowrapPopoverText

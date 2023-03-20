@@ -21,7 +21,6 @@ const MoviesPage = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    console.debug(apiData);
     if (apiData?.results) {
       setMovieList(apiData?.results);
     } else {

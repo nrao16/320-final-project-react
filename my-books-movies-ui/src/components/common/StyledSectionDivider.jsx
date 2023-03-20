@@ -1,6 +1,7 @@
 import React from 'react'
 import StyledDivider from './StyledDivider'
 import { Typography } from '@mui/material';
+import { PropTypes } from 'prop-types';
 
 const StyledSectionDivider = ({text}) => {
   return (
@@ -11,5 +12,10 @@ const StyledSectionDivider = ({text}) => {
   </StyledDivider>
   )
 }
+
+StyledSectionDivider.propTypes = {
+  text: PropTypes.string,
+};
+
 
 export default StyledSectionDivider

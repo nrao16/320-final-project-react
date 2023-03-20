@@ -1,11 +1,12 @@
 import React from 'react'
 import { Card, CardHeader, CardMedia, CardActions, Box, IconButton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { PropTypes } from 'prop-types';
 
 const FavoriteCard = ({ favoriteItem, removeFromFavorites }) => {
     return (
         <Box padding={1}>
-            <Card sx={{ maxWidth: 250, maxHeight:350 }}>
+            <Card sx={{ maxWidth: 250, maxHeight: 350 }}>
                 <CardHeader
                     titleTypographyProps={{
                         fontSize: 12,
@@ -22,7 +23,7 @@ const FavoriteCard = ({ favoriteItem, removeFromFavorites }) => {
                     src={favoriteItem.img}
                     alt="Favorite item image"
                 />
-                <CardActions sx={{textAlign:"right",  width: '100%', justifyContent: 'flex-end' }}>
+                <CardActions sx={{ textAlign: "right", width: '100%', justifyContent: 'flex-end' }}>
                     <IconButton sx={{ "& :hover": { color: "red" } }}
                         aria-label="delete favorite"
                         onClick={() => {
@@ -40,6 +41,15 @@ const FavoriteCard = ({ favoriteItem, removeFromFavorites }) => {
             </Card>
         </Box>
     )
+}
+FavoriteCard.propTypes = {
+    favoriteItem: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        subHeader: PropTypes.string,
+        img: PropTypes.string,
+    }),
+    removeFromFavorites: PropTypes.func,
 }
 
 export default FavoriteCard

@@ -3,6 +3,7 @@ import { IconButton, Tooltip, Card, CardHeader, CardActions, Link, CardContent, 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import NowrapPopoverText from '../common/NowrapPopoverText';
+import { PropTypes } from 'prop-types';
 
 const MovieCard = ({ movie, updateFavorites, favorites }) => {
   const isInFavorites = () => {
@@ -52,15 +53,15 @@ const MovieCard = ({ movie, updateFavorites, favorites }) => {
             }
           </IconButton>
 
-          <Tooltip title={movie.linksuggested_link_text}>
+          <Tooltip title={movie.link.suggested_link_text}>
             <Box sx={{ ml: 2 }}>
-            <Link 
-            href={movie.link.url} variant="body2"
-            target="_blank"
-            rel="noopener"
-            alt="Movie review article"
-            >
-              Review
+              <Link
+                href={movie.link.url} variant="body2"
+                target="_blank"
+                rel="noopener"
+                alt="Movie review article"
+              >
+                Review
               </Link>
             </Box>
           </Tooltip>
@@ -68,6 +69,22 @@ const MovieCard = ({ movie, updateFavorites, favorites }) => {
       </Card>
     </Box>
   )
+}
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    display_title: PropTypes.string.isRequired,
+    headline: PropTypes.string.isRequired,
+    multimedia: PropTypes.shape({
+      src: PropTypes.string,
+    }),
+    link: PropTypes.shape({
+      suggested_link_text: PropTypes.string,
+      url: PropTypes.string,
+    }),
+  }),
+  updateFavorites: PropTypes.func,
+  favorites: PropTypes.array
 }
 
 export default MovieCard

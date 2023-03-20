@@ -5,6 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import NowrapPopoverText from '../common/NowrapPopoverText';
 import { blueGrey } from '@mui/material/colors';
+import { PropTypes } from 'prop-types';
 
 const BookCard = ({ book, updateFavorites, favorites }) => {
   const isInFavorites = () => {
@@ -66,6 +67,19 @@ const BookCard = ({ book, updateFavorites, favorites }) => {
       </Card>
     </Box>
   )
+}
+
+BookCard.propTypes = {
+  book: PropTypes.shape({
+    primary_isbn13: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    book_image: PropTypes.string,
+    book_rank: PropTypes.number,
+    weeks_on_list: PropTypes.number,
+  }),
+  updateFavorites: PropTypes.func,
+  favorites: PropTypes.array
 }
 
 export default BookCard
