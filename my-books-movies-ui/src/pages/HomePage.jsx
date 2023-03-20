@@ -26,6 +26,7 @@ const HomePage = () => {
                             <CardMedia
                                 component={"img"}
                                 src={"https://img.freepik.com/free-vector/white-bookshelf-mockup-books-shelf-library_107791-2457.jpg?w=2000"}
+                                alt="Image of bookshelf with books"
                             />
                         </Link>
                     </CardActions>
@@ -37,7 +38,9 @@ const HomePage = () => {
                     <CardActions>
                         <Link to="/movies">
                             <CardMedia
-                                component={"img"} src="https://previews.123rf.com/images/leberus/leberus2006/leberus200600016/149868636-online-cinema-with-popcorn-soda-and-3d-glasses.jpg" alt="Movies"
+                                component={"img"} 
+                                src="https://previews.123rf.com/images/leberus/leberus2006/leberus200600016/149868636-online-cinema-with-popcorn-soda-and-3d-glasses.jpg" 
+                                alt="Image of movie theatre with popcorn"
                             />
                         </Link>
                     </CardActions>
