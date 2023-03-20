@@ -97,17 +97,17 @@ const BooksPage = () => {
 
   }
 
-  const gridItemBreakpoint = showFavorites ? 10 : 12;
+  const gridItemBreakpoint = showFavorites ? 9 : 12;
 
   return (
     <>
       <FavoritesToolBar setShowFavorites={setShowFavorites} showFavorites={showFavorites} />
 
       <Grid container>
-        <Grid item xs={gridItemBreakpoint}>
+        <Grid item xs={gridItemBreakpoint} lg={11}>
 
           <Grid item xs={12} sm={12} md={12}>
-            <StyledSectionDivider text={"New York Times Hard Cover Fiction Top 5"} />
+            <StyledSectionDivider text={" Hard Cover Fiction Top 5"} />
           </Grid>
 
           <Grid container item xs={12} sm={12} md={12}>
@@ -115,7 +115,7 @@ const BooksPage = () => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={12}>
-            <StyledSectionDivider text="New York Times Hard Cover Non Fiction Top 5" />
+            <StyledSectionDivider text="Hard Cover Non Fiction Top 5" />
           </Grid>
 
           <Grid container item xs={12} sm={12} md={12}>
@@ -123,7 +123,7 @@ const BooksPage = () => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={12}>
-            <StyledSectionDivider text="New York Times Paperback Non Fiction Top 5" />
+            <StyledSectionDivider text="Paperback Non Fiction Top 5" />
           </Grid>
 
           <Grid container item xs={12} sm={12} md={12}>
@@ -133,7 +133,7 @@ const BooksPage = () => {
         </Grid>
 
         {showFavorites &&
-          <Grid item xs={2}>
+          <Grid item xs={2} lg={1}>
             <Box>
               <Grid item xs={12}>Favorites</Grid>
 
