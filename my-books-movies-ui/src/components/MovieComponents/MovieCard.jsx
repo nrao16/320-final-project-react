@@ -1,8 +1,8 @@
 import React from 'react';
-import { IconButton, Card, CardHeader, CardActions, CardContent, CardMedia } from '@mui/material';
-import { Typography, Box } from '@mui/material';
+import { IconButton, Tooltip, Card, CardHeader, CardActions, Link, CardContent, CardMedia, Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import NowrapPopoverText from '../common/NowrapPopoverText';
 
 const MovieCard = ({ movie, updateFavorites, favorites }) => {
   const isInFavorites = () => {
@@ -11,7 +11,7 @@ const MovieCard = ({ movie, updateFavorites, favorites }) => {
 
   return (
     <Box padding={1}>
-      <Card sx={{ maxWidth: 350, maxHeight:400 }}>
+      <Card sx={{ maxWidth: 450, maxHeight: 400 }}>
         <CardHeader
           titleTypographyProps={{
             fontSize: 15,
@@ -19,22 +19,21 @@ const MovieCard = ({ movie, updateFavorites, favorites }) => {
           }}
           subheaderTypographyProps={{
             fontSize: 12,
-            noWrap: true
+            noWrap: true,
           }}
           title={movie.display_title}
           subheader={movie.headline}
         />
         <CardMedia
           component="img"
-          sx={{ height: 140, objectFit:"contain"}}
+          alt="Movie image"
+          sx={{ height: 140, objectFit: "contain" }}
           src={movie.multimedia.src}
         />
-        <CardContent>
-          <Typography fontSize={12} noWrap>
-            {movie.summary_short}
-          </Typography>
+        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', direction: 'row' }}>
+          <NowrapPopoverText fontSize={12} popoverText={movie.summary_short} />
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions disableSpacing sx={{ display: 'flex', justifyContent: 'space-between', direction: 'row' }}>
           <IconButton sx={{ "& :hover": { color: "red" } }}
             aria-label="add or remove favorites"
             onClick={() => {
@@ -53,6 +52,18 @@ const MovieCard = ({ movie, updateFavorites, favorites }) => {
             }
           </IconButton>
 
+          <Tooltip title={movie.linksuggested_link_text}>
+            <Box sx={{ ml: 2 }}>
+            <Link 
+            href={movie.link.url} variant="body2"
+            target="_blank"
+            rel="noopener"
+            alt="Movie review article"
+            >
+              Review
+              </Link>
+            </Box>
+          </Tooltip>
         </CardActions>
       </Card>
     </Box>

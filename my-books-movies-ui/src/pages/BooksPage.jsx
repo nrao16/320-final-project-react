@@ -42,7 +42,6 @@ const BooksPage = () => {
   const [showFavorites, setShowFavorites] = useState(false);
 
   useEffect(() => {
-    console.debug(hardcoverFiction);
     // hardcover fiction
     if (hardcoverFiction?.results) {
       setHardcoverFictionBookList(hardcoverFiction?.results?.books?.slice(0, 5));
@@ -137,7 +136,7 @@ const BooksPage = () => {
           <Grid item xs={2}>
             <Box>
               <Grid item xs={12}>Favorites</Grid>
-              
+
               <Grid container item xs={12} direction="column">
                 <FavoritesList favorites={favorites} removeFromFavorites={removeFromFavorites} />
               </Grid>

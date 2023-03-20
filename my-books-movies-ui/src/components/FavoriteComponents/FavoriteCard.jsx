@@ -20,6 +20,7 @@ const FavoriteCard = ({ favoriteItem, removeFromFavorites }) => {
                     component="img"
                     sx={{ height: 100, objectFit: "contain" }}
                     src={favoriteItem.img}
+                    alt="Favorite item image"
                 />
                 <CardActions sx={{textAlign:"right",  width: '100%', justifyContent: 'flex-end' }}>
                     <IconButton sx={{ "& :hover": { color: "red" } }}

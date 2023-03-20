@@ -71,7 +71,7 @@ const MoviesPage = () => {
         <Grid item xs={gridItemBreakpoint}>
 
           <Grid item xs={12} sm={12} md={12}>
-            <StyledSectionDivider text={"New York Times Movie Reviews Top Picks"} />
+            <StyledSectionDivider text={"New York Times Top Movie Picks"} />
           </Grid>
 
           <Grid container item xs={12} sm={12} md={12}>
