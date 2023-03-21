@@ -7,6 +7,7 @@ import StyledSectionDivider from '../components/common/StyledSectionDivider';
 import invokeRESTApi from '../services/invokeRESTApi';
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import booksAndMoviesRepo from '../repo/booksAndMoviesRepo';
 
 export async function loader() {
   const nytBooksURL = `${process.env.REACT_APP_NYT_API_BASE_URL}/books/v3/lists/current/`;
@@ -40,6 +41,19 @@ const BooksPage = () => {
   const [hasError, setHasError] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
+  const { addRepoItem, removeRepoItem, getRepoItemsForUser } = booksAndMoviesRepo();
+  const currentUser = "nanrao";
+  const dbBookCollection = "favorite-books";
+
+  const getFavoriteBookItems = async () => {
+    const favoriteBookItems = await getRepoItemsForUser(currentUser, dbBookCollection);
+    //console.log(`favoriteBookItems--${JSON.stringify(favoriteBookItems)}`);
+    setFavorites(favoriteBookItems);
+  }
+  
+  if (favorites.length === 0) {
+    getFavoriteBookItems().catch(console.error);
+  }
 
   useEffect(() => {
     // hardcover fiction
@@ -63,7 +77,7 @@ const BooksPage = () => {
     } else {
       console.error(`API error - ${paperbackNonfiction}`)
       setHasError(true);
-    }
+    }   
 
   }, [hardcoverFiction, hardcoverNonfiction, paperbackNonfiction])
 
@@ -78,7 +92,9 @@ const BooksPage = () => {
       addToFavorites(book);
     }
   }
-  const addToFavorites = (book) => {
+  const addToFavorites = async (book) => {
+    await addRepoItem(book, currentUser, dbBookCollection);
+
     setFavorites(prevFavorites => {
       let newList = [...prevFavorites];
       newList.push(book);
@@ -87,7 +103,9 @@ const BooksPage = () => {
     );
   }
 
-  const removeFromFavorites = (book) => {
+  const removeFromFavorites = async (book) => {
+    await removeRepoItem(book, currentUser, dbBookCollection);
+
     setFavorites(prevFavorites => {
       let newList = prevFavorites.filter(currentBook =>
         currentBook.id !== book.id

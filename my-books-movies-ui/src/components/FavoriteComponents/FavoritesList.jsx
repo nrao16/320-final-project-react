@@ -6,7 +6,7 @@ import { PropTypes } from 'prop-types';
 const FavoritesList = ({ favorites, removeFromFavorites }) => {
     let favoriteListGrid = favorites.map((favoriteItem) => {
         return (
-            <Grid item sx={12} key={favoriteItem.id}>
+            <Grid item key={favoriteItem.id}>
                 <FavoriteCard
                     favoriteItem={favoriteItem}
                     removeFromFavorites={removeFromFavorites}

@@ -7,6 +7,7 @@ import FavoritesToolBar from '../components/FavoriteComponents/FavoritesToolBar'
 import invokeRESTApi from '../services/invokeRESTApi';
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import booksAndMoviesRepo from '../repo/booksAndMoviesRepo';
 
 export async function loader() {
   const url = `${process.env.REACT_APP_NYT_API_BASE_URL}/movies/v2/reviews/picks.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`;
@@ -19,6 +20,18 @@ const MoviesPage = () => {
   const [hasError, setHasError] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const { addRepoItem, removeRepoItem, getRepoItemsForUser } = booksAndMoviesRepo();
+  const currentUser = "nanrao";
+  const dbMovieCollection = "favorite-movies";
+
+  const getFavoriteMovieItems = async () => {
+    const favoriteMovieItems = await getRepoItemsForUser(currentUser, dbMovieCollection);
+    setFavorites(favoriteMovieItems);
+  }
+  
+  if (favorites.length === 0) {
+    getFavoriteMovieItems().catch(console.error);
+  }
 
   useEffect(() => {
     if (apiData?.results) {
@@ -41,7 +54,9 @@ const MoviesPage = () => {
       addToFavorites(movie);
     }
   }
-  const addToFavorites = (movie) => {
+  const addToFavorites = async(movie) => {
+    await addRepoItem(movie, currentUser, dbMovieCollection);
+
     setFavorites(prevFavorites => {
       let newList = [...prevFavorites];
       newList.push(movie);
@@ -50,7 +65,9 @@ const MoviesPage = () => {
     );
   }
 
-  const removeFromFavorites = (movie) => {
+  const removeFromFavorites = async(movie) => {
+    await removeRepoItem(movie, currentUser, dbMovieCollection);
+
     setFavorites(prevFavorites => {
       let newList = prevFavorites.filter(currentMovie =>
         currentMovie.id !== movie.id
