@@ -77,17 +77,19 @@ const MoviesPage = () => {
 
   }
 
-  const gridItemBreakpoint = showFavorites ? 10 : 12;
+  const gridItemXSBreakpoint = showFavorites ? 8 : 12;
+  const gridItemMdBreakpoint = showFavorites ? 10 : 12
+  const gridItemLgBreakpoint = showFavorites ? 10.75 : 12
 
   return (
     <>
       <FavoritesToolBar setShowFavorites={setShowFavorites} showFavorites={showFavorites} />
 
       <Grid container>
-        <Grid item xs={gridItemBreakpoint}>
+        <Grid item xs={gridItemXSBreakpoint} md={gridItemMdBreakpoint} lg={gridItemLgBreakpoint}>
 
           <Grid item xs={12} sm={12} md={12}>
-            <StyledSectionDivider text={"New York Times Top Movie Picks"} />
+            <StyledSectionDivider text={"Critics Top Movie Picks"} />
           </Grid>
 
           <Grid container item xs={12} sm={12} md={12}>
@@ -96,7 +98,7 @@ const MoviesPage = () => {
         </Grid>
 
         {showFavorites &&
-          <Grid item xs={2}>
+          <Grid item xs={12-gridItemXSBreakpoint} md={12-gridItemMdBreakpoint} lg={12-gridItemLgBreakpoint}>
             <Box>
               <Grid item xs={12}>Favorites</Grid>
 

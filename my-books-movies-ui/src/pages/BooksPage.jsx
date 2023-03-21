@@ -50,7 +50,7 @@ const BooksPage = () => {
     //console.log(`favoriteBookItems--${JSON.stringify(favoriteBookItems)}`);
     setFavorites(favoriteBookItems);
   }
-  
+
   if (favorites.length === 0) {
     getFavoriteBookItems().catch(console.error);
   }
@@ -115,17 +115,19 @@ const BooksPage = () => {
 
   }
 
-  const gridItemBreakpoint = showFavorites ? 9 : 12;
+  const gridItemXSBreakpoint = showFavorites ? 8 : 12;
+  const gridItemMdBreakpoint = showFavorites ? 10 : 12
+  const gridItemLgBreakpoint = showFavorites ? 10.75 : 12
 
   return (
     <>
       <FavoritesToolBar setShowFavorites={setShowFavorites} showFavorites={showFavorites} />
 
       <Grid container>
-        <Grid item xs={gridItemBreakpoint} lg={11}>
+        <Grid item xs={gridItemXSBreakpoint} md={gridItemMdBreakpoint} lg={gridItemLgBreakpoint}>
 
           <Grid item xs={12} sm={12} md={12}>
-            <StyledSectionDivider text={" Hard Cover Fiction Top 5"} />
+            <StyledSectionDivider text={" Hardcover Fiction Top 5"} />
           </Grid>
 
           <Grid container item xs={12} sm={12} md={12}>
@@ -133,7 +135,7 @@ const BooksPage = () => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={12}>
-            <StyledSectionDivider text="Hard Cover Non Fiction Top 5" />
+            <StyledSectionDivider text="Hardcover Nonfiction Top 5" />
           </Grid>
 
           <Grid container item xs={12} sm={12} md={12}>
@@ -141,7 +143,7 @@ const BooksPage = () => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={12}>
-            <StyledSectionDivider text="Paperback Non Fiction Top 5" />
+            <StyledSectionDivider text="Paperback Nonfiction Top 5" />
           </Grid>
 
           <Grid container item xs={12} sm={12} md={12}>
@@ -151,8 +153,8 @@ const BooksPage = () => {
         </Grid>
 
         {showFavorites &&
-          <Grid item xs={2} lg={1}>
-            <Box>
+          <Grid item xs={12-gridItemXSBreakpoint} md={12-gridItemMdBreakpoint} lg={12-gridItemLgBreakpoint}>
+            <Box >
               <Grid item xs={12}>Favorites</Grid>
 
               <Grid container item xs={12} direction="column">
