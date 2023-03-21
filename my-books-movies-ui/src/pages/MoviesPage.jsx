@@ -7,6 +7,7 @@ import FavoritesToolBar from '../components/FavoriteComponents/FavoritesToolBar'
 import invokeRESTApi from '../services/invokeRESTApi';
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import booksAndMoviesRepo from '../repo/booksAndMoviesRepo';
 
 export async function loader() {
   const url = `${process.env.REACT_APP_NYT_API_BASE_URL}/movies/v2/reviews/picks.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`;
@@ -19,6 +20,18 @@ const MoviesPage = () => {
   const [hasError, setHasError] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const { addRepoItem, removeRepoItem, getRepoItemsForUser } = booksAndMoviesRepo();
+  const currentUser = "nanrao";
+  const dbMovieCollection = "favorite-movies";
+
+  const getFavoriteMovieItems = async () => {
+    const favoriteMovieItems = await getRepoItemsForUser(currentUser, dbMovieCollection);
+    setFavorites(favoriteMovieItems);
+  }
+  
+  if (favorites.length === 0) {
+    getFavoriteMovieItems().catch(console.error);
+  }
 
   useEffect(() => {
     if (apiData?.results) {
@@ -41,7 +54,9 @@ const MoviesPage = () => {
       addToFavorites(movie);
     }
   }
-  const addToFavorites = (movie) => {
+  const addToFavorites = async(movie) => {
+    await addRepoItem(movie, currentUser, dbMovieCollection);
+
     setFavorites(prevFavorites => {
       let newList = [...prevFavorites];
       newList.push(movie);
@@ -50,7 +65,9 @@ const MoviesPage = () => {
     );
   }
 
-  const removeFromFavorites = (movie) => {
+  const removeFromFavorites = async(movie) => {
+    await removeRepoItem(movie, currentUser, dbMovieCollection);
+
     setFavorites(prevFavorites => {
       let newList = prevFavorites.filter(currentMovie =>
         currentMovie.id !== movie.id
@@ -60,17 +77,19 @@ const MoviesPage = () => {
 
   }
 
-  const gridItemBreakpoint = showFavorites ? 10 : 12;
+  const gridItemXSBreakpoint = showFavorites ? 8 : 12;
+  const gridItemMdBreakpoint = showFavorites ? 10 : 12
+  const gridItemLgBreakpoint = showFavorites ? 10.75 : 12
 
   return (
     <>
       <FavoritesToolBar setShowFavorites={setShowFavorites} showFavorites={showFavorites} />
 
       <Grid container>
-        <Grid item xs={gridItemBreakpoint}>
+        <Grid item xs={gridItemXSBreakpoint} md={gridItemMdBreakpoint} lg={gridItemLgBreakpoint}>
 
           <Grid item xs={12} sm={12} md={12}>
-            <StyledSectionDivider text={"New York Times Top Movie Picks"} />
+            <StyledSectionDivider text={"Critics Top Movie Picks"} />
           </Grid>
 
           <Grid container item xs={12} sm={12} md={12}>
@@ -79,7 +98,7 @@ const MoviesPage = () => {
         </Grid>
 
         {showFavorites &&
-          <Grid item xs={2}>
+          <Grid item xs={12-gridItemXSBreakpoint} md={12-gridItemMdBreakpoint} lg={12-gridItemLgBreakpoint}>
             <Box>
               <Grid item xs={12}>Favorites</Grid>
 
